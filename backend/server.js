@@ -1,12 +1,12 @@
 const express = require("express");
 const session = require("express-session");
 const mysql = require("mysql2");
-const axios = require("axios"); // Make sure to import axios
+const axios = require("axios");
 const cors = require("cors");
 
 const app = express();
 
-// enable CORS for to access frontend with backend , allow credentials for to pass cookies
+// enable cors for to access frontend with backend , allow credentials for to pass cookies
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -16,7 +16,7 @@ app.use(
 
 app.use(express.json());
 
-// Setup session middleware
+// setup session
 app.use(
   session({
     secret: "vaave_assignment",
@@ -48,7 +48,7 @@ app.post("/login", async (req, res) => {
   const { accessToken } = req.body;
 
   try {
-    // Fetch user info from Google API using the access token
+    // get user info from google api
     const response = await axios.get(
       "https://www.googleapis.com/oauth2/v3/userinfo",
       {
@@ -60,7 +60,7 @@ app.post("/login", async (req, res) => {
 
     const useremail = response.data.email;
 
-    // Check if the user already exists
+    // check if the user already exists
     const checkUserQuery = "select * from usersdata where useremail = ?";
     db.query(checkUserQuery, [useremail], (err, result) => {
       if (err) {
@@ -69,7 +69,7 @@ app.post("/login", async (req, res) => {
       }
 
       if (result.length > 0) {
-        // User already exists, don't insert
+        // user exists, don't insert
         console.log("User already exists:", useremail);
       } else {
         const insertUserQuery = "insert into usersdata (useremail) values (?)";
@@ -82,13 +82,13 @@ app.post("/login", async (req, res) => {
         });
       }
 
-      // Create session and store user info
+      // create session
       req.session.user = {
         email: useremail,
       };
       console.log("Session created:", req.session.user);
 
-      // Send success response back to the client
+      // send success response back to the client
       res.json({ login: true, email: useremail });
     });
   } catch (error) {
@@ -116,7 +116,7 @@ app.get("/logout", (req, res) => {
   });
 });
 
-// to fetch topics
+// to get topics
 app.get("/topics", (req, res) => {
   const q = "select * from topics";
   db.query(q, (err, data) => {
@@ -128,7 +128,7 @@ app.get("/topics", (req, res) => {
 app.get("/questions", (req, res) => {
   const topic_name = req.query.topic;
 
-  // query to fetch questions and options for the given topic
+  // query to get questions and options for the given topic
   const sql = `
     select questions.id AS question_id, 
            questions.question_text, 
