@@ -8,9 +8,8 @@ export default function Logout() {
     try {
       const res = await axios.get(
         "http://localhost:8080/logout",
-        { withCredentials: true } // Ensure cookies are sent with the request
+        { withCredentials: true } //cookies are sent with the request
       );
-      // localStorage.removeItem("useremail");
       navigate("/home");
       console.log("Logged out successfully");
     } catch (err) {

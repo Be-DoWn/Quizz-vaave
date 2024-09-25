@@ -112,7 +112,7 @@ app.get("/logout", (req, res) => {
     if (err) {
       return res.json({ message: "session not destroyed" });
     }
-    return res.json({ message: "session destroyed" }); 
+    return res.json({ message: "session destroyed" });
   });
 });
 

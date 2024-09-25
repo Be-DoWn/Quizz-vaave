@@ -73,5 +73,12 @@
                         {message : "User data stored successfully"}
                     on error
                         { message: "Error saving user responses", error: error.message }
-4. Logout 
+
+4. Logout - get(/logout,{withcredentials:true})
+    Description: this component is for to destroy user session and remove the cookie from the local storage
+    input : GET('http://localhost:8080/logout, {withcredentials: true})
+    output: it destroys the session if its valid 
+            on success - { message: "session destroyed" }
+            on error - { message: "session not destroyed" }
+
 
