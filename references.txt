@@ -1,0 +1,23 @@
+1. DataBase Design 
+    docs  - https://gist.github.com/bradtraversy/c831baaad44343cc945e76c2e30927b3
+    Video tutorials - https://youtu.be/5RpUmDEsn1k?si=bqhamy5KEdUbNTTs
+                    - https://youtu.be/Cz3WcZLRaWc?si=Hq_wafcKlWK9anr9
+    tools - https://dbdiagram.io/
+            https://boardmix.com/
+
+2. Google authentication - https://www.npmjs.com/package/@react-oauth/google
+    how to get the client id - https://console.cloud.google.com/apis/credentials
+    how to get the userinfo form the access token - https://stackoverflow.com/questions/24442668/google-oauth-api-to-get-users-email-address#answer-62761046
+
+4. session validation -
+    Docs - https://www.npmjs.com/package/express-session
+         - https://www.geeksforgeeks.org/how-to-handle-sessions-in-express/
+         - https://stackoverflow.com/questions/43002444/make-axios-send-cookies-in-its-requests-automatically
+    Video tutorials - https://www.npmjs.com/package/express-session
+                      https://youtu.be/b4H9EOKc910?si=iVXwCZ13ZUO0iXsK
+
+5. js find method - 
+    docs  - https://www.geeksforgeeks.org/javascript-array-find-method/
+
+6. passing params to next page- 
+    docs - https://stackoverflow.com/questions/45898789/react-router-pass-param-to-component
