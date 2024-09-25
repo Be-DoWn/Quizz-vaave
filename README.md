@@ -37,7 +37,6 @@ npm start
 2. insert some sample data inside topics , levels, questions, options
 
 ## 3. Getting google client id
-
 1. please update the dummy google client id - frontend/src/app.jsx
    ```bash
    const clientId = "your-googleClientId"
