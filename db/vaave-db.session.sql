@@ -1,6 +1,8 @@
 show databases
 
 -- @block
+use vaave
+-- @block
 Show tables
 
 -- @block
