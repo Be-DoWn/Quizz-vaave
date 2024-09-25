@@ -34,3 +34,5 @@
     join topics on questions.topic_id = topics.id
     join options on questions.id = options.question_id
     where topics.topic_name = ?;"
+
+8. Reffered async and await - https://blog.postman.com/understanding-async-await-in-node-js/
