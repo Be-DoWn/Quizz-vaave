@@ -5,7 +5,7 @@ import Logout from "../components/logout";
 
 export default function Topics() {
   const [topicsData, setTopicsData] = useState([]);
-  const [loading, setLoading] = useState(true); // Track loading state
+  const [loading, setLoading] = useState(true); 
   const [useremail, setUserEmail] = useState("");
   const navigate = useNavigate();
 
@@ -15,9 +15,9 @@ export default function Topics() {
       .then((res) => {
         if (res.data.loggedIn) {
           setUserEmail(res.data.user.email);
-          getTopics(); // Fetch topics after session validation
+          getTopics(); // get topics after session validation
         } else {
-          // If session is invalid, navigate to login
+          // if session is invalid go to login
           navigate("/home");
         }
       })
@@ -33,20 +33,19 @@ export default function Topics() {
       .then((res) => {
         console.log(res.data);
         setTopicsData(res.data);
-        setLoading(false); // Stop loading once topics are fetched
+        setLoading(false); // set loading false once we got questions
       })
       .catch((err) => {
         console.log("Error fetching topics", err);
-        setLoading(false); // Stop loading if there is an error
+        setLoading(false); // set loading false if we got error and show no topics
       });
   };
 
   return (
     <div>
-      {/* Display user email if session is valid */}
+      {/* show useremail if session is valid else null */}
       {useremail ? <p>Welcome, {useremail}</p> : null}
 
-      {/* Display topics or loading status */}
       {loading ? (
         <p>Loading topics...</p>
       ) : topicsData.length > 0 ? (
@@ -62,8 +61,6 @@ export default function Topics() {
       ) : (
         <p>No topics available</p>
       )}
-
-      {/* Logout component */}
       <Logout />
     </div>
   );

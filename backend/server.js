@@ -6,11 +6,10 @@ const cors = require("cors");
 
 const app = express();
 
-// Enable CORS with credentials
+// enable CORS for to access frontend with backend , allow credentials for to pass cookies
 app.use(
   cors({
     origin: "http://localhost:5173",
-    methods: ["POST", "GET"],
     credentials: true,
   })
 );
@@ -44,15 +43,7 @@ db.connect((err) => {
   console.log("DB connectioned.");
 });
 
-//check once
-app.get("/", (req, res) => {
-  if (req.session.user) {
-    return res.json({ valid: true });
-  }
-  return res.json({ valid: false });
-});
-
-// Route to log in and create session
+// log in and create session, creating user if not existed
 app.post("/login", async (req, res) => {
   const { accessToken } = req.body;
 
@@ -70,7 +61,7 @@ app.post("/login", async (req, res) => {
     const useremail = response.data.email;
 
     // Check if the user already exists
-    const checkUserQuery = "SELECT * FROM usersdata WHERE useremail = ?";
+    const checkUserQuery = "select * from usersdata where useremail = ?";
     db.query(checkUserQuery, [useremail], (err, result) => {
       if (err) {
         console.error("Error checking user in DB:", err);
@@ -87,7 +78,7 @@ app.post("/login", async (req, res) => {
             console.error("Error inserting user in DB:", err);
             return res.json({ message: "Database error" });
           }
-          console.log("User inserted:", useremail);
+          console.log("User inserted:", useremail, result);
         });
       }
 
@@ -106,7 +97,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// Route to check if the session is valid
+// check if the session is valid
 app.get("/session", (req, res) => {
   if (req.session.user) {
     res.json({ loggedIn: true, user: req.session.user });
@@ -116,16 +107,16 @@ app.get("/session", (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
-  res.clearCookie("connect.sid"); 
+  res.clearCookie("connect.sid");
   req.session.destroy((err) => {
     if (err) {
       return res.json({ message: "session not destroyed" });
     }
-    return res.json({ message: "session destroyed" }); // Send response to client
+    return res.json({ message: "session destroyed" }); 
   });
 });
 
-// Route to fetch topics
+// to fetch topics
 app.get("/topics", (req, res) => {
   const q = "select * from topics";
   db.query(q, (err, data) => {
@@ -137,7 +128,7 @@ app.get("/topics", (req, res) => {
 app.get("/questions", (req, res) => {
   const topic_name = req.query.topic;
 
-  // SQL query to fetch questions and options for the given topic
+  // query to fetch questions and options for the given topic
   const sql = `
     select questions.id AS question_id, 
            questions.question_text, 
@@ -151,7 +142,7 @@ app.get("/questions", (req, res) => {
     where topics.topic_name = ?;
   `;
 
-  // Database query
+  // query
   db.query(sql, [topic_name], (err, results) => {
     if (err) {
       return res.json({ error: err.message });
@@ -206,7 +197,7 @@ app.post("/userdata", async (req, res) => {
         }
       });
     });
-    // Insert responses one by one
+    // insert responses one by one
 
     // console.log(responses);
     for (const response of responses) {

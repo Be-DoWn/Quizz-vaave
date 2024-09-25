@@ -44,36 +44,16 @@
                     output - on success return - 40 array results  
                             [
                                 {
-                                is_correct:1
-                                level_id:1
-                                option_id:1
-                                option_text:"option 1 "
-                                question_id:1
-                                question_text:"beginner 1 question on Sports"
+                                is_correct:1, level_id:1, option_id:1, option_text:"option 1 ", question_id:1, question_text:"beginner 1 question on Sports"
                                 },
                                 {
-                                is_correct:1
-                                level_id:1
-                                option_id:2
-                                option_text:"option 1 "
-                                question_id:1
-                                question_text:"beginner 1 question on Sports"
+                                 is_correct:1, level_id:1, option_id:2, option_text:"option 2", question_id:1, question_text:"beginner 1 question on Sports"
                                 },
                                 {
-                                is_correct:1
-                                level_id:1
-                                option_id:3
-                                option_text:"option 1 "
-                                question_id:1
-                                question_text:"beginner 1 question on Sports"
+                                 is_correct:1, level_id:1, option_id:3, option_text:"option 3", question_id:1, question_text:"beginner 1 question on Sports"
                                 },
                                 {
-                                is_correct:1
-                                level_id:1
-                                option_id:4
-                                option_text:"option 1 "
-                                question_id:1
-                                question_text:"beginner 1 question on Sports"
+                                 is_correct:1, level_id:1, option_id:4, option_text:"option 4", question_id:1, question_text:"beginner 1 question on Sports"
                                 },
                                 .....
                             ]
@@ -94,3 +74,4 @@
                     on error
                         { message: "Error saving user responses", error: error.message }
 4. Logout 
+

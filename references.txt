@@ -16,8 +16,21 @@
     Video tutorials - https://www.npmjs.com/package/express-session
                       https://youtu.be/b4H9EOKc910?si=iVXwCZ13ZUO0iXsK
 
-5. js find method - 
+5. js find method - for to formatt the data got from the query
     docs  - https://www.geeksforgeeks.org/javascript-array-find-method/
 
 6. passing params to next page- 
     docs - https://stackoverflow.com/questions/45898789/react-router-pass-param-to-component
+
+7. Getting questions and options from the DataBase 
+    used - chatgpt for querry to - 
+           "select questions.id AS question_id, 
+           questions.question_text, 
+           options.id AS option_id, 
+           options.option_text, 
+           options.is_correct,
+           questions.level_id AS level_id
+    from questions
+    join topics on questions.topic_id = topics.id
+    join options on questions.id = options.question_id
+    where topics.topic_name = ?;"

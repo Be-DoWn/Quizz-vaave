@@ -40,8 +40,8 @@ export default function Questions() {
       .get("http://localhost:8080/questions", { params: { topic } })
       .then((res) => {
         console.log(res.data);
-        const structuredQuestions = structureQuestions(res.data);
-        setQuestions(structuredQuestions);
+        const formattedData = structureQuestions(res.data);
+        setQuestions(formattedData);
         console.log(questions);
         setLoading(false);
       })
@@ -52,21 +52,21 @@ export default function Questions() {
   };
 
   const structureQuestions = (data) => {
-    const structuredData = [];
+    const formattedData = [];
     data.forEach((item) => {
-      const existingQuestion = structuredData.find(
+      const existingQuestion = formattedData.find(
         (q) => q.question_text === item.question_text
       );
       if (!existingQuestion) {
-        structuredData.push({
+        formattedData.push({
           question_text: item.question_text,
           level_id: item.level_id,
-          question_id: item.question_id, // Add question ID for the backend
+          question_id: item.question_id,
           options: [
             {
               option_text: item.option_text,
               is_correct: item.is_correct,
-              option_id: item.option_id, // Add option ID for the backend
+              option_id: item.option_id,
             },
           ],
         });
@@ -74,46 +74,46 @@ export default function Questions() {
         existingQuestion.options.push({
           option_text: item.option_text,
           is_correct: item.is_correct,
-          option_id: item.option_id, // Add option ID for the backend
+          option_id: item.option_id,
         });
       }
     });
-    return structuredData;
+    return formattedData;
   };
 
   const checkAnswer = (selectedOption, option_id, question_id, level_id) => {
     const currentQ = questions[currentQuestion];
     const correctOption = currentQ.options.find((opt) => opt.is_correct);
-    console.log(correctOption)
-    // Add user's response
+    console.log(correctOption, currentQ.options);
+    //saving user responses
     const updatedAnswers = [
       ...userAnswers,
       {
         level_id: level_id,
-        question_id: question_id, // Store question ID
-        selected_option_id: option_id, // Store selected option ID
-        is_correct: selectedOption === correctOption.option_text,
+        question_id: question_id,
+        selected_option_id: option_id,
+        is_correct: selectedOption === correctOption.option_text, //true or false
       },
     ];
     setUserAnswers(updatedAnswers); // Update user answers state
 
     if (selectedOption === correctOption.option_text) {
-      setScore(score + 1); // Increment score if the answer is correct
+      setScore(score + 1); // add+1 to score if the answer is correct
     }
 
     if (currentQuestion < questions.length - 1) {
-      // Move to the next question if not the last question
+      // move to the next question if not the last question
       setCurrentQuestion(currentQuestion + 1);
     } else {
-      // If it's the last question, mark the quiz as completed
+      // if it's the last question, mark the quiz as completed
       setQuizCompleted(true);
       const userData = {
         user: user,
-        score: score + (selectedOption === correctOption.option_text ? 1 : 0), //Missing last question response so adding once again
-        responses: updatedAnswers, // Include all user responses
+        score: score + (selectedOption === correctOption.option_text ? 1 : 0), //missing last question response so adding once again
+        responses: updatedAnswers, 
       };
-      console.log(userData);
-      submittingScore(userData); // Submit user score and responses
+      // console.log(userData);
+      submittingScore(userData); // passing user data to submit function
     }
   };
 
@@ -121,7 +121,7 @@ export default function Questions() {
     axios
       .post("http://localhost:8080/userdata", {
         ...userData,
-        topic_id: id, // Pass topic_id along with user data
+        topic_id: id, // need topic_id also to to store in the userResponses
       })
       .then((res) => {
         console.log("Response from backend: ", res.data);

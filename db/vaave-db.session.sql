@@ -1,10 +1,7 @@
-show databases;
+show databases
 
 -- @block
-USE vaave
-
--- @block
-show tables
+Show tables
 
 -- @block
 Create table Topics (
