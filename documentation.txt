@@ -12,7 +12,7 @@
                 1. return the error message
 
 2. Topics page
-    Description - checking user session is valid and want to show topics else navigating to home
+    Description - checking user session is valid and get the topics from database
     Input - Get( url, cookies)
     output - (on success) - 
                 {
@@ -29,7 +29,7 @@
             - on error - Session is invalid 
                        { loggedIn: false }
 3. Question page
-    Description - checking user session and want to show the options else back to home
+    Description - checking user session and get the questions & options else back to home
     Input - get (/session, cookies) - session checking
     output - on success - 
                     {
