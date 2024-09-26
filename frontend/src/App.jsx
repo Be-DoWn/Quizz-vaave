@@ -6,8 +6,7 @@ import Topics from "./screens/Topics";
 import Questions from "./screens/Questions";
 
 function App() {
-  const clientId =
-    "1086744707768-1mo9tdm3fad31g114u5sk0au2phuqkte.apps.googleusercontent.com";
+  const clientId = "your-cleint-id";
   return (
     <>
       <GoogleOAuthProvider clientId={clientId}>
